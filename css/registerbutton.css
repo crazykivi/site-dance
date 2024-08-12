@@ -1,0 +1,156 @@
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #ff4b4b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #ff6565;
+}
+
+.success-message {
+    color: green;
+    background: #ccffcc;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    background: #ffcccc;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-wrapper {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.styled-checkbox+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    transition: all 0.3s;
+}
+
+.styled-checkbox:hover+label:before {
+    border-color: #ff4b4b;
+}
+
+.styled-checkbox:checked+label:before {
+    background-color: #ff4b4b;
+    border-color: #ff4b4b;
+}
+
+.styled-checkbox:checked+label:after {
+    content: '';
+    position: absolute;
+    left: 5.5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.radio-wrapper {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.styled-radio {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.styled-radio+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    /* Делаем круглым */
+    background-color: #f9f9f9;
+    transition: all 0.3s;
+}
+
+.styled-radio:hover+label:before {
+    border-color: #ff4b4b;
+}
+
+.styled-radio:checked+label:before {
+    background-color: #ff4b4b;
+    border-color: #ff4b4b;
+}
+.class-separator {
+    height: 1px;
+    /* Толщина линии */
+    background-color: #ccc;
+    /* Цвет линии, здесь светло-серый */
+    margin: 10px 0;
+    /* Отступы сверху и снизу, чтобы отделить линию от текста */
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 40px auto 40px auto;
+    transform: translateY(-20px);
+    /* Начальное состояние: h2 смещён вверх */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    opacity: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
