@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/registerbutton.css">
+</head>
+<div id="overlay" class="overlay"></div>
+<div class="header">
+    <div class="logo"><img src="img/logo.png"></div>
+    <nav>
+        <a id="home-link" href="index">ГЛАВНАЯ СТРАНИЦА</a>
+        <a href="registration">ЗАПИСАТЬСЯ</a>
+        <a href="styles">НАПРАВЛЕНИЯ</a>
+        <a href="price">ПРАЙС</a>
+        <a href="master-class">МАСТЕР-КЛАСС</a>
+        <a href="choreographers">ХОРЕОГРАФЫ</a>
+        <a href="reviews">ОТЗЫВЫ</a>
+        <a href="about">О НАС</a>
+    </nav>
+    <div class="actions">
+        <a id="show-form-button">КАБИНЕТ СОТРУДНИКА</a>
+    </div>
+</div>
+<div class="mobile-header">
+    <div class="logo"><img src="img/logo.png"></div>
+    <button id="menu-btn" class="menu-btn">Меню</button>
+    <div class="mobile">
+        <nav>
+            <a id="mobile-home-link" href="index">ГЛАВНАЯ СТРАНИЦА</a>
+            <a href="registration">ЗАПИСАТЬСЯ</a>
+            <a href="styles">НАПРАВЛЕНИЯ</a>
+            <a href="price">ПРАЙС</a>
+            <a href="master-class">МАСТЕР-КЛАСС</a>
+            <a href="choreographers">ХОРЕОГРАФЫ</a>
+            <a href="reviews">ОТЗЫВЫ</a>
+            <a href="about">О НАС</a>
+            <a id="show-form-button-second">КАБИНЕТ СОТРУДНИКА</a>
+        </nav>
+    </div>
+</div>
+
+<body>
+
+    <div class="banner">
+        <div class="banner-content">
+            <div class="rellax banner-background">
+                <h1>ШКОЛА ТАНЦЕВ</h1>
+                <p>У вас течет музыка в жилах? Вы мечтаете о том, чтобы выразить себя через танец? Наша школа — именно
+                    то место, где вы сможете раскрыть свой творческий потенциал и научиться новым движениям. </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-container">
+        <div class="school-info">
+            <div id='instructors-container'></div>
+        </div>
+    </div>
+
+    <div class="banner-second">
+        <div class="banner-content-second">
+            <div class="rellax banner-background-second">
+                <h1>ЖИВИ В ТАНЦЕ</h1>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadInstructors() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        // Обработка полученных данных
+                        var instructors = JSON.parse(this.responseText);
+                        displayInstructors(instructors);
+                    } else {
+                        console.error('Ошибка загрузки данных: ' + this.statusText);
+                    }
+                }
+            };
+            xhttp.open("GET", "functions/get_instructors.php", true); // Укажите путь к вашему серверному скрипту
+            xhttp.send();
+        }
+
+        // Функция для отображения списка мастеров на странице
+        function displayInstructors(instructors) {
+            var instructorsContainer = document.getElementById("instructors-container");
+            if (instructors.length > 0) {
+                var html = "<h2>Наши хореографы</h2>";
+                instructors.forEach(function (instructor) {
+                    html += "<div class='instructor'>";
+                    html += "<h3>" + instructor.name + "</h3>";
+                    html += "<p><strong>Опыт:</strong> " + instructor.experience + "</p>";
+                    html += "<p><strong>Стили танцев:</strong> " + instructor.styles + "</p>"; // Добавляем стили танцев
+                    html += "</div>";
+                });
+                instructorsContainer.innerHTML = html;
+            } else {
+                instructorsContainer.innerHTML = "Хореографов не найдено";
+            }
+        }
+
+        // Вызов функции загрузки мастеров после полной загрузки страницы
+        document.addEventListener("DOMContentLoaded", function () {
+            loadInstructors();
+        });
+    </script>
+    <script src="on-load.js"></script>
+    <script src="load-accout.js"></script>
+    <script src="about.js"></script>
+</body>
+
+</html>

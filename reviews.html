@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОТЗЫВЫ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/registerbutton.css">
+    <script>
+        let currentReviewIndex = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadReviews();
+            loadChoreographers();
+        });
+
+        function loadReviews() {
+            fetch('functions/get_reviews.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        displayReviews(data);
+                    } else {
+                        console.error('Error loading reviews:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayReviews(reviews) {
+            const reviewsContainer = document.querySelector('.reviews-container');
+            reviewsContainer.innerHTML = '';
+
+            reviews.forEach(review => {
+                if (review.namechoreographer && review.textreview) {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.className = 'review';
+                    reviewElement.innerHTML = `
+                <p><strong>Хореограф:</strong> ${review.namechoreographer}</p>
+                <p>${review.textreview}</p>
+            `;
+                    reviewsContainer.appendChild(reviewElement);
+                }
+            });
+
+            showReview(currentReviewIndex);
+        }
+
+        function showReview(index) {
+            const reviews = document.querySelectorAll('.review');
+            const containerWidth = document.querySelector('.reviews-container').offsetWidth;
+            const offset = -index * containerWidth;
+            reviews.forEach((review) => {
+                review.style.transform = `translateX(${offset}px)`;
+            });
+        }
+
+        function nextReview() {
+            const reviews = document.querySelectorAll('.review');
+            if (currentReviewIndex < reviews.length - 1) {
+                currentReviewIndex++;
+            } else {
+                currentReviewIndex = 0;
+            }
+            showReview(currentReviewIndex);
+        }
+
+        function prevReview() {
+            const reviews = document.querySelectorAll('.review');
+            if (currentReviewIndex > 0) {
+                currentReviewIndex--;
+            } else {
+                currentReviewIndex = reviews.length - 1;
+            }
+            showReview(currentReviewIndex);
+        }
+
+        function loadChoreographers() {
+            fetch('functions/get_choreographers.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        populateChoreographerSelect(data);
+                    } else {
+                        console.error('Error loading choreographers:', data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function populateChoreographerSelect(choreographers) {
+            const select = document.getElementById('idchoreographer');
+            select.innerHTML = '';
+            choreographers.forEach(choreographer => {
+                const option = document.createElement('option');
+                option.value = choreographer.idchoreographer;
+                option.textContent = choreographer.name;
+                select.appendChild(option);
+            });
+        }
+
+        function addReview(event) {
+            event.preventDefault();
+            var formData = new FormData(document.getElementById('add-review-form'));
+            fetch('functions/add_review.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert('Отзыв добавлен успешно');
+                        loadReviews();
+                    } else {
+                        alert(`Ошибка при добавлении отзыва: ${data.message || data.error}`);
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+    </script>
+</head>
+<div id="overlay" class="overlay"></div>
+<div class="header">
+    <div class="logo"><img src="img/logo.png"></div>
+    <nav>
+        <a id="home-link" href="index">ГЛАВНАЯ СТРАНИЦА</a>
+        <a href="registration">ЗАПИСАТЬСЯ</a>
+        <a href="styles">НАПРАВЛЕНИЯ</a>
+        <a href="price">ПРАЙС</a>
+        <a href="master-class">МАСТЕР-КЛАСС</a>
+        <a href="choreographers">ХОРЕОГРАФЫ</a>
+        <a href="reviews">ОТЗЫВЫ</a>
+        <a href="about">О НАС</a>
+    </nav>
+    <div class="actions">
+        <a id="show-form-button">КАБИНЕТ СОТРУДНИКА</a>
+    </div>
+</div>
+<div class="mobile-header">
+    <div class="logo"><img src="img/logo.png"></div>
+    <button id="menu-btn" class="menu-btn">Меню</button>
+    <div class="mobile">
+        <nav>
+            <a id="mobile-home-link" href="index">ГЛАВНАЯ СТРАНИЦА</a>
+            <a href="registration">ЗАПИСАТЬСЯ</a>
+            <a href="styles">НАПРАВЛЕНИЯ</a>
+            <a href="price">ПРАЙС</a>
+            <a href="master-class">МАСТЕР-КЛАСС</a>
+            <a href="choreographers">ХОРЕОГРАФЫ</a>
+            <a href="reviews">ОТЗЫВЫ</a>
+            <a href="about">О НАС</a>
+            <a id="show-form-button-second">КАБИНЕТ СОТРУДНИКА</a>
+        </nav>
+    </div>
+</div>
+
+<body>
+
+    <div class="banner">
+        <div class="banner-content">
+            <div class="rellax banner-background">
+                <h1>ШКОЛА ТАНЦЕВ</h1>
+                <p>У вас течет музыка в жилах? Вы мечтаете о том, чтобы выразить себя через танец? Наша школа — именно
+                    то место, где вы сможете раскрыть свой творческий потенциал и научиться новым движениям. </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-container">
+        <h2>Отзывы</h2>
+        <div class="reviews-container">
+            <!-- Отзывы будут загружены сюда с помощью JavaScript -->
+        </div>
+        <div class="reviews-controls">
+            <button onclick="prevReview()">Предыдущий</button>
+            <button onclick="nextReview()">Следующий</button>
+        </div>
+
+
+        <h2>Добавить отзыв</h2>
+        <form id="add-review-form" onsubmit="addReview(event)">
+            <label for="idchoreographer">Хореограф:</label>
+            <select id="idchoreographer" name="idchoreographer" required>
+                <!-- Опции для хореографов будут загружены с помощью JavaScript -->
+            </select><br>
+
+            <label for="textreview">Отзыв:</label>
+            <textarea id="textreview" name="textreview" required></textarea><br>
+
+            <button type="submit">Добавить отзыв</button>
+        </form>
+    </div>
+
+    <div class="banner-second">
+        <div class="banner-content-second">
+            <div class="rellax banner-background-second">
+                <h1>ЖИВИ В ТАНЦЕ</h1>
+            </div>
+        </div>
+    </div>
+    <script src="on-load.js"></script>
+    <script src="load-accout.js"></script>
+    <script src="about.js"></script>
+</body>
+
+</html>

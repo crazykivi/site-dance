@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/registerbutton.css">
+</head>
+<div id="overlay" class="overlay"></div>
+<div class="header">
+    <div class="logo"><img src="img/logo.png"></div>
+    <nav>
+        <a id="home-link" href="index">ГЛАВНАЯ СТРАНИЦА</a>
+        <a href="registration">ЗАПИСАТЬСЯ</a>
+        <a href="styles">НАПРАВЛЕНИЯ</a>
+        <a href="price">ПРАЙС</a>
+        <a href="master-class">МАСТЕР-КЛАСС</a>
+        <a href="choreographers">ХОРЕОГРАФЫ</a>
+        <a href="reviews">ОТЗЫВЫ</a>
+        <a href="about">О НАС</a>
+    </nav>
+    <div class="actions">
+        <a id="show-form-button">КАБИНЕТ СОТРУДНИКА</a>
+    </div>
+</div>
+<div class="mobile-header">
+    <div class="logo"><img src="img/logo.png"></div>
+    <button id="menu-btn" class="menu-btn">Меню</button>
+    <div class="mobile">
+        <nav>
+            <a id="mobile-home-link" href="index">ГЛАВНАЯ СТРАНИЦА</a>
+            <a href="registration">ЗАПИСАТЬСЯ</a>
+            <a href="styles">НАПРАВЛЕНИЯ</a>
+            <a href="price">ПРАЙС</a>
+            <a href="master-class">МАСТЕР-КЛАСС</a>
+            <a href="choreographers">ХОРЕОГРАФЫ</a>
+            <a href="reviews">ОТЗЫВЫ</a>
+            <a href="about">О НАС</a>
+            <a id="show-form-button-second">КАБИНЕТ СОТРУДНИКА</a>
+        </nav>
+    </div>
+</div>
+
+<body>
+
+    <div class="banner">
+        <div class="banner-content">
+            <div class="rellax banner-background">
+                <h1>ШКОЛА ТАНЦЕВ</h1>
+                <p>У вас течет музыка в жилах? Вы мечтаете о том, чтобы выразить себя через танец? Наша школа — именно
+                    то место, где вы сможете раскрыть свой творческий потенциал и научиться новым движениям. </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-container">
+        <form method="post">
+            <div class="form-group">
+                <label for="fullName">Ваше имя*</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birthDate">Дата рождения*</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Номер телефона*</label>
+                <input type="tel" id="phone" name="phone" title="+79999999999" required pattern="\+7\d{10}"
+                    placeholder="+79999999999">
+            </div>
+
+            <div class="form-group vertically">
+                <label>Для кого рассматриваете занятия?*</label>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="forSelf" name="forWhom" value="self" class="styled-checkbox">
+                    <label for="forSelf">Для себя</label>
+                </div>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="forChild" name="forWhom" value="child" class="styled-checkbox">
+                    <label for="forChild">Для ребёнка</label>
+                </div>
+            </div>
+
+            <div class="form-group vertically">
+                <label>Занимались ли вы ранее танцами?*</label>
+                <div class="radio-wrapper">
+                    <input type="radio" id="yes" name="dancedBefore" value="yes" class="styled-radio" required>
+                    <label for="yes">Да</label>
+                </div>
+                <div class="radio-wrapper">
+                    <input type="radio" id="no" name="dancedBefore" value="no" class="styled-radio" required>
+                    <label for="no">Нет</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="directions">Укажите виды направлений:*</label>
+                <select id="directions" name="directions" required>
+                    <option value="" disabled selected hidden>Выберите направление</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div for="trial">Пробное занятие на любое направление - бесплатно (попробовать себя)</div>
+            </div>
+
+            <div class="form-group">
+                <label for="additional">Дополнительные вопросы или пожелания</label>
+                <textarea id="additional" name="additional"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="button">ОТПРАВИТЬ</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="banner-second">
+        <div class="banner-content-second">
+            <div class="rellax banner-background-second">
+                <h1>ЖИВИ В ТАНЦЕ</h1>
+            </div>
+        </div>
+    </div>
+    <script src="on-load.js"></script>
+    <script src="load-accout.js"></script>
+    <!-- Для регистрации -->
+    <script src="register.js"></script>
+    <script src="input.js">
+    </script>
+</body>
+
+</html>
