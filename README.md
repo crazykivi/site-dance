@@ -4,4 +4,4 @@
 # Главная страница сайта
 ![Главная страница](https://github.com/crazykivi/site-dance/blob/main/img/dance-img/gl.png))
 # Главная страница сайта мобильной версии
-![Главная страница мобильной версии]([https://github.com/crazykivi/site-dance/blob/main/img/dance-img/gl.png](https://github.com/crazykivi/site-dance/blob/main/img/dance-img/glm.png)))
+![Главная страница мобильной версии](https://github.com/crazykivi/site-dance/blob/main/img/dance-img/glm.png))
